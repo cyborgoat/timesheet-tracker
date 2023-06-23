@@ -4,15 +4,13 @@ from django.urls import (
     path,
     include,
 )
-from rest_framework.routers import DefaultRouter
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from timesheet import views
 
-router = DefaultRouter()
-router.register('tasks', views.TaskViewSet)
-
-app_name = 'timesheet'
-
 urlpatterns = [
-    path('', include(router.urls)),
+    path('tasks/', views.TaskList.as_view()),
+    path('detail/<int:pk>/', views.TaskDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
