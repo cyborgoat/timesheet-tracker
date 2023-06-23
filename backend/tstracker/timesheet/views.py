@@ -18,7 +18,11 @@ class TaskList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        return Response({"status": "true"}, status=status.HTTP_201_CREATED)
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=False):
+            serializer.save()
+            return Response({'status': 'success'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TaskDetail(APIView):
