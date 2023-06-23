@@ -1,14 +1,14 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from timesheet.serializers import StaffSerializer
-from timesheet.models import Staff
+from timesheet.serializers import TaskSerializer
+from timesheet.models import Task
 
 
-class StaffViewSet(viewsets.ModelViewSet):
+class TaskViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Staff.objects.all().order_by('id')
-    serializer_class = StaffSerializer
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]

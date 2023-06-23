@@ -9,7 +9,7 @@ from rest_framework.routers import DefaultRouter
 from timesheet import views
 
 router = DefaultRouter()
-router.register('staffs', views.StaffViewSet)
+router.register('tasks', views.TaskViewSet)
 
 app_name = 'timesheet'
 

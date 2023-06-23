@@ -4,13 +4,12 @@
 Serializers for experience APIs.
 """
 from rest_framework import serializers
+from timesheet.models import Task
 
-from timesheet.models import Staff
 
-
-class StaffSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     """Serializer for experience."""
 
     class Meta:
-        model = Staff
-        fields = ['id', 'name']
+        model = Task
+        fields = '__all__'
