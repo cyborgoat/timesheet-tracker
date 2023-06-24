@@ -18,7 +18,6 @@ class TaskSerializer(serializers.ModelSerializer):
     """Serializer for experience."""
 
     owner = UserSerializer()
-    supervisor = UserSerializer()
 
     class Meta:
         model = Task

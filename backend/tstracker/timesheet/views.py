@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.http import Http404
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from timesheet.serializers import TaskSerializer
 from timesheet.models import Task
@@ -11,6 +14,8 @@ class TaskList(APIView):
     """
     List all snippets, or create a new task.
     """
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         snippets = Task.objects.all()
@@ -18,11 +23,17 @@ class TaskList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = TaskSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=False):
-            serializer.save()
-            return Response({'status': 'success'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user: User = request.user
+        title = request.data.get('title')
+        description = request.data.get('description')
+        start = request.data.get('start')
+        end = request.data.get('end')
+        try:
+            task = Task(owner=user, title=title, description=description, start=start, end=end)
+            task.save()
+            return Response({'status': 'Task created'}, status=status.HTTP_201_CREATED)
+        except:
+            return Response({'status': 'Create task failed'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TaskDetail(APIView):
@@ -42,13 +53,16 @@ class TaskDetail(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        print(request.data)
         task = self.get_object(pk)
-        task.is_active = True
+
+        is_active = request.data.get('is_active')
+        finished = request.data.get('finished')
+        task.is_active = is_active
+        task.finished = finished
         task.save()
 
         serializer = TaskSerializer(task)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk, format=None):
         task = self.get_object(pk)

@@ -10,7 +10,6 @@ class Task(models.Model):
     start = models.DateTimeField(default=timezone.now)
     end = models.DateTimeField(default=timezone.now)
 
-    supervisor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="supervisor", blank=True, null=True)
     is_active = models.BooleanField(default=True)
     finished = models.BooleanField(default=False)
 
