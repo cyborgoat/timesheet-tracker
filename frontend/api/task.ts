@@ -1,12 +1,12 @@
 export async function taskList() {
-    const dataUrl = process.env.DB_ADDRESS + '/api/ts/tasks/'
+    const dataUrl = process.env.NEXT_PUBLIC_DB_ADDRESS + '/api/ts/tasks/'
     const res = await fetch(dataUrl, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
             "Authorization": 'Token eefe418c6e06c6eb1e7d0605dff585804c32753b' // Here you can add your token
-        }
-
+        },
+        cache: 'no-cache',
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

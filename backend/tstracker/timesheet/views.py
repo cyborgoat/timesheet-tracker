@@ -55,9 +55,9 @@ class TaskDetail(APIView):
     def put(self, request, pk, format=None):
         task = self.get_object(pk)
 
-        is_active = request.data.get('is_active')
+        # is_active = request.data.get('is_active')
         finished = request.data.get('finished')
-        task.is_active = is_active
+        # task.is_active = is_active
         task.finished = finished
         task.save()
 

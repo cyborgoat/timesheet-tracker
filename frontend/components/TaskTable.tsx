@@ -1,6 +1,8 @@
+'use client';
 import {Owner, Task} from "@/types/task";
 import {it} from "node:test";
 import {taskList} from "@/api/task";
+import React, {MouseEvent} from 'react';
 
 export default async function TaskTable(props: { owner: String, tasks: Task[] }) {
     const headers = ['Owner', 'Title', 'Start', 'End', 'Description']
@@ -16,6 +18,7 @@ export default async function TaskTable(props: { owner: String, tasks: Task[] })
                             <span className={"mx-4"}>{task.title}</span>
                             <div className={"absolute inset-y-0 right-0"}>
                                 <input type="checkbox"
+                                       onClick={() => toggleFinishStatus(task)}
                                        defaultChecked={task.finished}
                                        className={`checkbox checkbox-sm align-middle dark:border-sky-200 dark:border-opacity-40 `}/>
                             </div>
@@ -27,6 +30,19 @@ export default async function TaskTable(props: { owner: String, tasks: Task[] })
             </div>
         </div>
     )
+}
 
-
+function toggleFinishStatus(task: Task) {
+    const updateApiUrl = process.env.NEXT_PUBLIC_DB_ADDRESS + `/api/ts/detail/${task.id}/`
+    fetch(updateApiUrl, {
+        method: 'PUT',
+        headers: {
+            // 'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Authorization": 'Token eefe418c6e06c6eb1e7d0605dff585804c32753b', // Here you can add your token
+        },
+        body: JSON.stringify({"finished": !task.finished})
+    })
+        .then(response => response.json())
+        .then(response => console.log(JSON.stringify(response)))
 }

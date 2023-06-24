@@ -8,9 +8,7 @@ import TaskTable from "@/components/TaskTable";
 export default async function Home() {
     const tasks: Task[] = await taskList();
     const taskMap = getTaskMap(tasks);
-
     const owners = Array.from(taskMap.keys());
-    console.log(taskMap)
     return (
         <main
             className="flex flex-col w-screen min-h-screen items-center justify-items-center p-16 gap-y-8 dark:bg-slate-800 dark:text-slate-200">
