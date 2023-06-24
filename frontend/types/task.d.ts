@@ -1,4 +1,6 @@
-interface Owner {
+export interface Owner {
+    id: number,
+    username: string,
     first_name: string,
     last_name: string,
 }
