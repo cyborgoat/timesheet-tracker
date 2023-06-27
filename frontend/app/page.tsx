@@ -1,8 +1,9 @@
+'use client';
 import Image from 'next/image'
 import {taskList} from "@/api/task";
 import {Owner, Task} from "@/types/task";
-import {useCookies} from 'react-cookie';
 import TaskTable from "@/components/TaskTable";
+import Header from "@/components/Header";
 
 
 export default async function Home() {
@@ -10,19 +11,22 @@ export default async function Home() {
     const taskMap = getTaskMap(tasks);
     const owners = Array.from(taskMap.keys());
     return (
-        <main
-            className="flex flex-col w-screen min-h-screen items-center justify-items-center p-16 gap-y-8 dark:bg-slate-800 dark:text-slate-200">
-            {owners.map((owner, i) => {
-                let _tasks = taskMap.get(owner) as Task[];
-                return (
-                    <>
-                        <div className={"w-1/2 border-b-2 border-b-sky-400 border-opacity-40"}>
-                            <TaskTable key={i} owner={owner} tasks={_tasks}/>
-                        </div>
-                    </>
-                )
-            })}
-        </main>
+        <>
+            <Header/>
+            <div
+                className="flex flex-col w-screen min-h-screen items-center justify-items-center p-16 gap-y-8">
+                {owners.map((owner, i) => {
+                    let _tasks = taskMap.get(owner) as Task[];
+                    return (
+                        <>
+                            <div className={"w-1/2 border-b-2 border-b-sky-400 border-opacity-40"}>
+                                <TaskTable key={i} owner={owner} tasks={_tasks}/>
+                            </div>
+                        </>
+                    )
+                })}
+            </div>
+        </>
     )
 }
 
