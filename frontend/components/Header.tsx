@@ -1,12 +1,7 @@
 'use client'
 import {getCookie} from 'cookies-next';
-import {useEffect, useState} from "react";
 
-export default async function Header() {
-    const [uid, setUid] = useState('');
-    useEffect(() => {
-        console.log(getCookie('uid'))
-    }, [uid])
+export default async function Header(props: { uid: string }) {
 
     return (
         <header>
@@ -14,7 +9,7 @@ export default async function Header() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div className="text-center sm:text-left">
                         <h1 className="text-2xl font-bold sm:text-3xl">
-                            Welcome Back, {uid}!
+                            Welcome Back, {props.uid}!
                         </h1>
 
                         <p className="mt-1.5 text-sm text-gray-300">
@@ -34,4 +29,10 @@ export default async function Header() {
             </div>
         </header>
     )
+}
+
+async function getUid(): Promise<String> {
+    const uid = getCookie('uid') as String;
+    console.log(uid)
+    return uid;
 }
