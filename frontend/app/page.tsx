@@ -1,6 +1,5 @@
-// 'use client';
 import {taskList} from "@/api/task";
-import {Owner, Task} from "@/types/task";
+import {UserInfo, Task} from "@/types/task";
 import TaskTable from "@/components/TaskTable";
 import Header from "@/components/Header";
 import {cookies} from 'next/headers'
@@ -11,11 +10,16 @@ export default async function Home() {
     const taskMap = getTaskMap(tasks);
     const owners = Array.from(taskMap.keys());
     const uid = cookies().get('uid')?.value as string;
-
+    const userInfo: UserInfo = {
+        first_name: cookies().get('firstname')?.value as string,
+        last_name: cookies().get('lastname')?.value as string,
+        username: cookies().get('username')?.value as string,
+        id: Number(cookies().get('id')?.value)
+    }
     return (
         <>
             {/*<p>{uid}</p>*/}
-            <Header uid={uid}/>
+            <Header userInfo={userInfo}/>
             <div
                 className="flex flex-col w-screen min-h-screen items-center justify-items-center p-16 gap-y-8">
                 {owners.map((owner, i) => {

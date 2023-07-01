@@ -1,13 +1,25 @@
 from django.contrib.auth.models import User
 from django.http import Http404
+from rest_framework import (status)
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
-from timesheet.serializers import TaskSerializer
-from timesheet.models import Task
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import (status)
+
+from timesheet.models import Task
+from timesheet.serializers import TaskSerializer, UserSerializer
+
+
+class UserDetail(APIView):
+    """User information"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        """Get current user information"""
+        user: User = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TaskList(APIView):

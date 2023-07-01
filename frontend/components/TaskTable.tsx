@@ -1,5 +1,5 @@
 'use client';
-import {Owner, Task} from "@/types/task";
+import {UserInfo, Task} from "@/types/task";
 import {it} from "node:test";
 import {taskList} from "@/api/task";
 import React, {MouseEvent} from 'react';

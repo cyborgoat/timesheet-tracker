@@ -1,4 +1,4 @@
-export interface Owner {
+export interface UserInfo {
     id: number,
     username: string,
     first_name: string,
@@ -7,7 +7,7 @@ export interface Owner {
 
 export interface Task {
     id: number,
-    owner: Owner,
+    owner: UserInfo,
     title: string,
     description: string,
     start: string,
