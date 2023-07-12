@@ -8,7 +8,7 @@ export async function getUserInfo(token: string): Promise<UserInfo> {
             'Content-Type': 'application/json',
             "Authorization": `Token ${token}` // Here you can add your token
         },
-        cache: 'no-cache',
+        // cache: 'no-cache',
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
