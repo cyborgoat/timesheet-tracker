@@ -3,7 +3,7 @@ import {getCookie} from 'cookies-next';
 import {UserInfo} from "@/types/task";
 import TaskForm from "@/components/TaskForm";
 
-export default async function Header(props: { userInfo: UserInfo }) {
+export default function Header(props: { userInfo: UserInfo }) {
 
     // @ts-ignore
     return (
@@ -21,21 +21,13 @@ export default async function Header(props: { userInfo: UserInfo }) {
                     </div>
 
                     <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                        {/*<button*/}
-                        {/*    className="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"*/}
-                        {/*    type="button"*/}
-                        {/*>*/}
-                        {/*    Create a task*/}
-                        {/* The button to open modal */}
-                        <label htmlFor="task_form" className="btn">open modal</label>
-
-                        {/* Put this part before </body> tag */}
+                        <label htmlFor="task_form" className="btn btn-outline btn-primary">open modal</label>
                         <input type="checkbox" id="task_form" className="modal-toggle"/>
                         <div className="modal">
-                            <div className="modal-box w-11/12 max-w-5xl">
+                            <div className="modal-box w-11/12 max-w-5xl bg-slate-600">
                                 <TaskForm/>
                                 <div className="modal-action">
-                                    <label htmlFor="task_form" className="btn">Close!</label>
+                                    <label htmlFor="task_form" className="btn btn-sm btn-outline">Close</label>
                                 </div>
                             </div>
                         </div>
