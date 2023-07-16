@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from datetime import datetime
 from timesheet.models import Task
 from timesheet.serializers import TaskSerializer, UserSerializer
 
@@ -40,6 +40,19 @@ class TaskList(APIView):
         description = request.data.get('description')
         start = request.data.get('start')
         end = request.data.get('end')
+        start = datetime.strptime(start, '%Y-%m-%d %H:%M')
+        end = datetime.strptime(end, '%Y-%m-%d %H:%M')
+
+        if end.timestamp() <= start.timestamp():
+            return Response({'status': 'End time must be later than start time.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user_tasks = Task.objects.all().filter(owner=user)
+        for t in user_tasks:
+            start_occupied, end_occupied = t.start, t.end
+            print(start_occupied, end_occupied, start, end)
+            if end_occupied.timestamp() >= start.timestamp() >= start_occupied.timestamp() or \
+                    end_occupied.timestamp() >= end.timestamp() >= start_occupied.timestamp():
+                return Response({'status': 'Time slot has been occupied.'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             task = Task(owner=user, title=title, description=description, start=start, end=end)
             task.save()

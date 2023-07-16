@@ -15,3 +15,8 @@ export interface Task {
     is_active: boolean,
     finished: boolean,
 }
+
+export interface TaskForm {
+    title: string,
+    description: string
+}
