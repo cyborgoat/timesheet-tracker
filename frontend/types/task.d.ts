@@ -16,7 +16,4 @@ export interface Task {
     finished: boolean,
 }
 
-export interface TaskForm {
-    title: string,
-    description: string
-}
+export type TaskForm = Omit<Task, 'id' | 'owner' | 'is_active' | 'finished'>

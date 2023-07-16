@@ -30,20 +30,17 @@ export async function createTask(taskForm: TaskForm, token: String) {
             'Content-Type': 'application/json',
             "Authorization": `Token ${token}` // Here you can add your token
         },
-        body: JSON.stringify({
-            title: taskForm.title,
-            description: taskForm.description
-        }),
+        body: JSON.stringify(taskForm),
         cache: 'no-cache',
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
 
     // Recommendation: handle errors
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-    }
+    // if (!res.ok) {
+    //     // This will activate the closest `error.js` Error Boundary
+    //     throw new Error(res.text())
+    // }
 
     return res.json()
 
