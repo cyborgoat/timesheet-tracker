@@ -21,7 +21,7 @@ export default function Header(props: { userInfo: UserInfo }) {
                     </div>
 
                     <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                        <label htmlFor="task_form" className="btn btn-outline btn-primary">open modal</label>
+                        <label htmlFor="task_form" className="btn btn-outline btn-accent">add task</label>
                         <input type="checkbox" id="task_form" className="modal-toggle"/>
                         <div className="modal">
                             <div className="modal-box w-11/12 max-w-5xl bg-slate-600">

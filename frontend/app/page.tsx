@@ -2,6 +2,7 @@ import {UserInfo, Task} from "@/types/task";
 import TaskTable from "@/components/TaskTable";
 import Header from "@/components/Header";
 import {cookies} from 'next/headers'
+import Link from "next/link";
 
 
 export default function Home() {
@@ -9,8 +10,11 @@ export default function Home() {
 
     if (!uid) {
         return (
-            <div>
-                Please login first.
+            <div className={"h-screen mx-auto pt-56 text-5xl text-bold text-center"}>
+                <p>
+                    Please login first.
+                </p>
+                <Link className={"btn btn-accent mx-6 mt-12"} href={"/login"}>Login</Link>
             </div>
         )
 
