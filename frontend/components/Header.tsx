@@ -25,7 +25,7 @@ export default function Header(props: { userInfo: UserInfo }) {
                         <input type="checkbox" id="task_form" className="modal-toggle"/>
                         <div className="modal">
                             <div className="modal-box w-11/12 max-w-5xl bg-slate-600">
-                                <TaskForm/>
+                                <TaskForm userInfo={props.userInfo}/>
                                 <div className="modal-action">
                                     <label htmlFor="task_form" className="btn btn-sm btn-outline">Close</label>
                                 </div>

@@ -33,14 +33,6 @@ export async function createTask(taskForm: TaskForm, token: String) {
         body: JSON.stringify(taskForm),
         cache: 'no-cache',
     });
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-
-    // Recommendation: handle errors
-    // if (!res.ok) {
-    //     // This will activate the closest `error.js` Error Boundary
-    //     throw new Error(res.text())
-    // }
 
     return res.json()
 

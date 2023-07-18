@@ -1,10 +1,11 @@
 'use client';
 import {useState} from "react";
 import React from "react";
-import {TaskForm} from "@/types/task";
+import {TaskForm, UserInfo} from "@/types/task";
 import {createTask} from "@/api/task";
+import {userInfo} from "os";
 
-export default function TaskForm() {
+export default function TaskForm(props: { userInfo: UserInfo }) {
     const [formMessage, setFormMessage] = useState('');
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -26,7 +27,7 @@ export default function TaskForm() {
             start: startTime,
             end: endTime
         }
-        const res = await createTask(taskForm, 'eefe418c6e06c6eb1e7d0605dff585804c32753b');
+        const res = await createTask(taskForm, props.userInfo.token);
         setFormMessage(res.status);
     };
     return (

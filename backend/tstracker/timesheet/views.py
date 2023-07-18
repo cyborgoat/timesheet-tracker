@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework import (status)
@@ -5,7 +7,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from datetime import datetime
+
 from timesheet.models import Task
 from timesheet.serializers import TaskSerializer, UserSerializer
 
@@ -56,7 +58,8 @@ class TaskList(APIView):
         try:
             task = Task(owner=user, title=title, description=description, start=start, end=end)
             task.save()
-            return Response({'status': 'Task created'}, status=status.HTTP_201_CREATED)
+            return Response({'status': 'Task created! You can close the form and refresh the page.'},
+                            status=status.HTTP_201_CREATED)
         except:
             return Response({'status': 'Create task failed'}, status=status.HTTP_400_BAD_REQUEST)
 

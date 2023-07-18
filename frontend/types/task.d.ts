@@ -3,6 +3,7 @@ export interface UserInfo {
     username: string,
     first_name: string,
     last_name: string,
+    token: string,
 }
 
 export interface Task {
