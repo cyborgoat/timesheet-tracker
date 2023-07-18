@@ -4,6 +4,8 @@ export interface UserInfo {
     first_name: string,
     last_name: string,
     token: string,
+    is_staff: boolean,
+    is_superuser: boolean,
 }
 
 export interface Task {

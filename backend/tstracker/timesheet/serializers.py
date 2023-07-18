@@ -3,15 +3,16 @@
 """
 Serializers for experience APIs.
 """
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
 from timesheet.models import Task
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name']
+        fields = ['id', 'username', 'first_name', 'last_name', 'is_staff', 'is_superuser']
 
 
 class TaskSerializer(serializers.ModelSerializer):

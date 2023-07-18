@@ -3,6 +3,7 @@ import TaskTable from "@/components/TaskTable";
 import Header from "@/components/Header";
 import {cookies} from 'next/headers'
 import Link from "next/link";
+import TaskForm from "@/components/TaskForm";
 
 
 export default function Home() {
@@ -25,12 +26,16 @@ export default function Home() {
         first_name: cookies().get('firstname')?.value as string,
         last_name: cookies().get('lastname')?.value as string,
         username: cookies().get('username')?.value as string,
-        id: Number(cookies().get('id')?.value)
+        id: Number(cookies().get('id')?.value),
+        is_staff: Boolean(cookies().get('is_staff')?.value),
+        is_superuser: Boolean(cookies().get('is_superuser')?.value),
     }
     return (
         <>
             {/*<p>{uid}</p>*/}
             <Header userInfo={userInfo}/>
+
+
             <div
                 className="flex flex-col w-screen min-h-screen items-center justify-items-center p-16 gap-y-8">
                 <TaskTable/>
